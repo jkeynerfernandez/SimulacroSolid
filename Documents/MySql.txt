@@ -1,0 +1,61 @@
+CREATE TABLE Especialidades (
+    Id Int AUTO_INCREMENT NOT null PRIMARY KEY,
+    Nombre VARCHAR(125),
+    Description TEXT,
+    Estado 	ENUM("activo", "inactivo", "eliminado")
+
+);
+
+CREATE TABLE Medicos (
+    Id Int AUTO_INCREMENT NOT null PRIMARY KEY,
+    NombreCompleto VARCHAR(125),
+    EspecialidadID int,
+    Correo VARCHAR(125) UNIQUE,
+    Telefono VARCHAR(75),
+    Estado 	ENUM("activo", "inactivo", "eliminado"),
+    FOREIGN KEY(EspecialidadID) REFERENCES Especialidades(Id)
+    
+);
+
+CREATE TABLE Pacientes (
+    Id Int AUTO_INCREMENT NOT null PRIMARY KEY,
+    Nombres VARCHAR(125),
+    Apellidos VARCHAR(125),
+    FechaNacimiento DATE,
+    Correo VARCHAR(125) UNIQUE,
+    Telefono VARCHAR(75),
+    Direccion VARCHAR(125),
+    Estado 	ENUM("activo", "inactivo", "eliminado")
+    
+    
+);
+
+
+CREATE TABLE Citas (
+    Id Int AUTO_INCREMENT NOT null PRIMARY KEY,
+    MedicoId INT,
+    PacienteID INT,
+    Fecha DATE,
+    Estado 	ENUM("atendida", "cancelada", "perdida"),
+    FOREIGN KEY(MedicoID) REFERENCES Medicos(Id),
+    FOREIGN KEY(PacienteID) REFERENCES Pacientes(Id)
+    
+    
+);
+
+CREATE TABLE Tratamientos (
+    Id Int AUTO_INCREMENT NOT null PRIMARY KEY,
+    CitaId INT,
+    Descripcion TEXT,
+    Estado 	ENUM("activo", "inactivo", "eliminado"),
+    FOREIGN KEY(CitaID) REFERENCES Citas(Id)
+    
+    
+    
+);
+
+
+
+
+
+
